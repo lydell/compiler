@@ -1,8 +1,6 @@
 var fs = require('fs');
 var package = require('./package.json');
 var path = require('path');
-var request = require('request');
-var zlib = require('zlib');
 
 
 
@@ -14,46 +12,39 @@ var zlib = require('zlib');
 
 module.exports = function(callback)
 {
-	// figure out URL of binary
+	// figure out package of binary
 	var version = package.version.replace(/^(\d+\.\d+\.\d+).*$/, '$1'); // turn '1.2.3-alpha' into '1.2.3'
+	var subPackageName = '@elm/' + process.platform + '_' + process.arch;
+	
+	// temporary code to support Mac M1 via Rosetta until we have a native binary
+	if (process.platform === 'darwin' && process.arch === 'arm64') {
+		subPackageName = '@elm/darwin_x64';
+	}
 
-	var platform = {
-		darwin_x64: 'mac-64-bit',
-		darwin_arm64: 'mac-64-bit',
-		win32_x64: 'windows-64-bit',
-		linux_x64: 'linux-64-bit'
-	}[process.platform + '_' + process.arch];
+	verifyPlatform(version, subPackageName);
 
-	verifyPlatform(version, platform);
+	var subBinaryPath;
 
-	var url = 'https://github.com/elm/compiler/releases/download/' + version + '/binary-for-' + platform + '.gz';
-
-	reportDownload(version, url);
+	try {
+		subBinaryPath = require.resolve(subPackageName);
+	} catch (error) {
+		if (error && error.code === 'MODULE_NOT_FOUND') {
+			exitFailure(version, missingSubPackageHelp());
+		} else {
+			exitFailure(version, 'I had trouble requiring the binary package for your platform (' + subPackageName + '):\n\n' + error);
+		}
+	}
 
 	// figure out where to put the binary (calls path.resolve() to get path separators right on Windows)
 	var binaryPath = path.resolve(__dirname, package.bin.elm) + (process.platform === 'win32' ? '.exe' : '');
 
-	// set up handler for request failure
-	function reportDownloadFailure(error)
-	{
-		exitFailure(url,'Something went wrong while fetching the following URL:\n\n' + url + '\n\nIt is saying:\n\n' + error);
+	try {
+		fs.copyFileSync(subBinaryPath, binaryPath);
+	} catch (error) {
+		exitFailure(version, 'I had some trouble writing file to disk. It is saying:\n\n' + error);
 	}
 
-	// set up decompression pipe
-	var gunzip = zlib.createGunzip().on('error', function(error) {
-		exitFailure(url, 'I ran into trouble decompressing the downloaded binary. It is saying:\n\n' + error);
-	});
-
-	// set up file write pipe
-	var write = fs.createWriteStream(binaryPath, {
-		encoding: 'binary',
-		mode: 0o755
-	}).on('finish', callback).on('error', function(error) {
-		exitFailure(url, 'I had some trouble writing file to disk. It is saying:\n\n' + error);
-	});
-
-	// put it all together
-	request(url).on('error', reportDownloadFailure).pipe(gunzip).pipe(write);
+	callback();
 }
 
 
@@ -61,9 +52,9 @@ module.exports = function(callback)
 // VERIFY PLATFORM
 
 
-function verifyPlatform(version, platform)
+function verifyPlatform(version, subPackageName)
 {
-	if (platform) return;
+	if (subPackageName in package.optionalDependencies) return;
 
 	var situation = process.platform + '_' + process.arch;
 	console.error(
@@ -85,13 +76,14 @@ function verifyPlatform(version, platform)
 // EXIT FAILURE
 
 
-function exitFailure(url, message)
+function exitFailure(version, message)
 {
 	console.error(
 		'-- ERROR -----------------------------------------------------------------------\n\n'
 		+ message
 		+ '\n\nNOTE: You can avoid npm entirely by downloading directly from:\n'
-		+ url + '\nAll this package does is download that file and put it somewhere.\n\n'
+		+ 'https://github.com/elm/compiler/releases/tag/' + version + '\n'
+		+ 'All this package does is distributing a file from there.\n\n'
 		+ '--------------------------------------------------------------------------------\n'
 	);
 	process.exit(1);
@@ -99,16 +91,19 @@ function exitFailure(url, message)
 
 
 
-// REPORT DOWNLOAD
+// MISSING SUB PACKAGE HELP
 
 
-function reportDownload(version, url)
+function missingSubPackageHelp()
 {
-	console.log(
-		'--------------------------------------------------------------------------------\n\n'
-		+ 'Downloading Elm ' + version + ' from GitHub.'
-		+ '\n\nNOTE: You can avoid npm entirely by downloading directly from:\n'
-		+ url + '\nAll this package does is download that file and put it somewhere.\n\n'
-		+ '--------------------------------------------------------------------------------\n'
+	return (
+		'I support your platform, but I could not find the binary package (' + subPackageName + ') for it!\n\n'
+		+ 'This can happen if you use the "--no-optional" npm flag. The "optionalDependencies"\n'
+		+ 'package.json feature is used by Elm to install the correct binary executable\n'
+		+ 'for your current platform. Remove the "--no-optional" flag to use Elm.\n\n'
+		+ 'This can also happen if the "node_modules" folder was copied between two operating systems\n'
+		+ 'that need different binaries - including "virtual" operating systems like Docker and WSL.\n'
+		+ 'If so, try installing with npm rather than copying "node_modules". If you use Yarn, read up\n'
+		+ 'on how it handles multiple platforms.'
 	);
 }

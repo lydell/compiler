@@ -16,7 +16,7 @@
     "url": "https://github.com/evancz"
   },
   "engines": {
-    "node": ">=7.0.0"
+    "node": ">=8.5.0"
   },
   "scripts": {
     "install": "node install.js"
@@ -36,7 +36,9 @@
     "installer"
   ],
   "bin": { "elm": "bin/elm" },
-  "dependencies": {
-    "request": "^2.88.0"
+  "optionalDependencies": {
+    "@elm/darwin_x64": "0.19.1",
+    "@elm/win32_x64": "0.19.1",
+    "@elm/linux_x64": "0.19.1"
   }
 }
