@@ -13,8 +13,19 @@ Create a [GitHub Release](https://github.com/elm/compiler/releases) with the fol
 
 Create each of these by running the `elm` executable for each platform through `gzip elm`.
 
+## 2. Put the binaries in place
 
-## 2. Try a beta release
+Put the above files at:
+
+1. `packages/darwin_x64/elm`
+2. `packages/win32_x64/elm`
+3. `packages/linux_x64/elm`
+
+(They are ignored by git.)
+
+## 3. Try a beta release
+
+TODO: Update for also publishing all the sub packages!
 
 In `package.json`, bump the version to `"0.19.2-beta"`.
 
@@ -34,7 +45,7 @@ The `latest` tag should not be changed, and there should be an additional `beta`
 Try this on Windows, Linux, and Mac.
 
 
-## 3. Publish final release
+## 4. Publish final release
 
 Remove the `-beta` suffix from the version in `package.json`. Then run:
 
@@ -43,7 +54,7 @@ npm publish
 ```
 
 
-## 4. Tag the `latest-0.19.1` version
+## 5. Tag the `latest-0.19.1` version
 
 Many compiler releases have needed multiple `npm` publications. Maybe something does not work on Windows or some dependency becomes insecure. Normal `npm` problems.
 
