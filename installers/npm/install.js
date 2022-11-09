@@ -1,4 +1,4 @@
 
-var download = require('./download.js');
+var download = require('./binary.js');
 
 download(function() {});

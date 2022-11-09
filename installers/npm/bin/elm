@@ -36,11 +36,11 @@ if (process.platform === 'win32')
 {
 	fs.existsSync(binaryPath)
 		? runCommand()
-		: require('../download.js')(runCommand);
+		: require('../binary.js')(runCommand);
 }
 else
 {
-	require('../download.js')(runCommand);
+	require('../binary.js')(runCommand);
 }
 
 

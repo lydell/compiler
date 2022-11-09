@@ -23,7 +23,7 @@
   },
   "files": [
     "install.js",
-    "download.js",
+    "binary.js",
     "bin",
     "bin/elm"
   ],
