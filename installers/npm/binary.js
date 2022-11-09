@@ -23,10 +23,10 @@ module.exports = function(callback)
 
 	verifyPlatform(version, subPackageName);
 
-	var subBinaryPath;
+	var subPackagePath;
 
 	try {
-		subBinaryPath = require.resolve(subPackageName);
+		subPackagePath = require.resolve(subPackageName);
 	} catch (error) {
 		if (error && error.code === 'MODULE_NOT_FOUND') {
 			exitFailure(version, missingSubPackageHelp());
@@ -36,6 +36,7 @@ module.exports = function(callback)
 	}
 
 	// figure out where to put the binary (calls path.resolve() to get path separators right on Windows)
+	var subBinaryPath = path.resolve(subPackagePath, 'elm');
 	var binaryPath = path.resolve(__dirname, package.bin.elm) + (process.platform === 'win32' ? '.exe' : '');
 
 	try {
