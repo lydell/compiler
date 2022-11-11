@@ -40,7 +40,7 @@ module.exports = function(callback)
 	var binaryPath = path.resolve(__dirname, package.bin.elm) + (process.platform === 'win32' ? '.exe' : '');
 
 	try {
-		fs.copyFileSync(subBinaryPath, binaryPath);
+		fs.renameSync(subBinaryPath, binaryPath);
 	} catch (error) {
 		exitFailure(version, 'I had some trouble writing file to disk. It is saying:\n\n' + error);
 	}
