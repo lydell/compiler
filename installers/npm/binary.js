@@ -35,7 +35,7 @@ module.exports = function()
 	{
 		if (error && error.code === 'MODULE_NOT_FOUND')
 		{
-			exitFailure(version, missingSubPackageHelp());
+			exitFailure(version, missingSubPackageHelp(subPackageName));
 		} else
 		{
 			exitFailure(version, 'I had trouble requiring the binary package for your platform (' + subPackageName + '):\n\n' + error);
@@ -114,7 +114,7 @@ function exitFailure(version, message)
 // MISSING SUB PACKAGE HELP
 
 
-function missingSubPackageHelp()
+function missingSubPackageHelp(subPackageName)
 {
 	return (
 		'I support your platform, but I could not find the binary package (' + subPackageName + ') for it!\n\n'
