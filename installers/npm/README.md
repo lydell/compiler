@@ -1,3 +1,12 @@
+# EXPERIMENTAL PACKAGE
+
+**This is not the official `elm` npm package!**
+
+This is an experiment to package Elm as a dependency free npm package. If you want to try that out, go ahead and install this package.
+
+👉 [Official elm package](https://www.npmjs.com/package/elm)
+
+
 # Elm Installer
 
 [Elm](https://elm-lang.org) is a functional programming language that compiles to JavaScript.

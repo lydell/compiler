@@ -14,13 +14,13 @@ module.exports = function()
 {
 	// figure out package of binary
 	var version = package.version.replace(/^(\d+\.\d+\.\d+).*$/, '$1'); // turn '1.2.3-alpha' into '1.2.3'
-	var subPackageName = '@evancz/elm_' + process.platform + '_' + process.arch;
+	var subPackageName = '@lydell/elm_' + process.platform + '_' + process.arch;
 
 	// temporary code to support ARM Mac via Rosetta until we have a native binary
 	if (process.platform === 'darwin' && process.arch === 'arm64')
 	{
 		// note: remove "arm64" from this package when adding elm_darwin_arm64
-		subPackageName = '@evancz/elm_darwin_x64';
+		subPackageName = '@lydell/elm_darwin_x64';
 	}
 
 	verifyPlatform(version, subPackageName);
