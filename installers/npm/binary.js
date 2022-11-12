@@ -15,7 +15,7 @@ module.exports = function()
 	// figure out package of binary
 	var version = package.version.replace(/^(\d+\.\d+\.\d+).*$/, '$1'); // turn '1.2.3-alpha' into '1.2.3'
 	var subPackageName = '@evancz/elm_' + process.platform + '_' + process.arch;
-	
+
 	// temporary code to support ARM Mac via Rosetta until we have a native binary
 	if (process.platform === 'darwin' && process.arch === 'arm64')
 	{
