@@ -17,9 +17,9 @@ Create each of these by running the `elm` executable for each platform through `
 
 Put the above files at:
 
-1. `packages/darwin_x64/elm`
-2. `packages/win32_x64/elm`
-3. `packages/linux_x64/elm`
+1. `packages/elm_darwin_x64/elm`
+2. `packages/elm_win32_x64/elm`
+3. `packages/elm_linux_x64/elm`
 
 (They are ignored by git.)
 
