@@ -1,4 +1,1 @@
-
-var download = require('./binary.js');
-
-download(function() {});
+require('./binary.js')();

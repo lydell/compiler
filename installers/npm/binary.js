@@ -7,44 +7,64 @@ var path = require('path');
 // MAIN
 //
 // This function is used by install.js and by the bin/elm backup that gets
-// called when --ignore-scripts is enabled. That's why install.js is so weird.
+// called when --ignore-scripts is enabled.
 
 
-module.exports = function(callback)
+module.exports = function()
 {
 	// figure out package of binary
 	var version = package.version.replace(/^(\d+\.\d+\.\d+).*$/, '$1'); // turn '1.2.3-alpha' into '1.2.3'
 	var subPackageName = '@evancz/elm_' + process.platform + '_' + process.arch;
 	
-	// temporary code to support Mac M1 via Rosetta until we have a native binary
-	if (process.platform === 'darwin' && process.arch === 'arm64') {
+	// temporary code to support ARM Mac via Rosetta until we have a native binary
+	if (process.platform === 'darwin' && process.arch === 'arm64')
+	{
+		// note: remove "arm64" from this package when adding elm_darwin_arm64
 		subPackageName = '@evancz/elm_darwin_x64';
 	}
 
 	verifyPlatform(version, subPackageName);
 
-	var subBinaryPath;
+	var fileName = process.platform === 'win32' ? 'elm.exe' : 'elm';
 
-	try {
-		subBinaryPath = require.resolve(subPackageName + '/elm');
-	} catch (error) {
-		if (error && error.code === 'MODULE_NOT_FOUND') {
+	try
+	{
+		var subBinaryPath = require.resolve(subPackageName + '/' + fileName);
+	}
+	catch (error)
+	{
+		if (error && error.code === 'MODULE_NOT_FOUND')
+		{
 			exitFailure(version, missingSubPackageHelp());
-		} else {
+		} else
+		{
 			exitFailure(version, 'I had trouble requiring the binary package for your platform (' + subPackageName + '):\n\n' + error);
 		}
 	}
 
-	// figure out where to put the binary (calls path.resolve() to get path separators right on Windows)
-	var binaryPath = path.resolve(__dirname, package.bin.elm) + (process.platform === 'win32' ? '.exe' : '');
+	// as mentioned in bin/elm we cannot do any optimizations on Windows
+	if (process.platform === 'win32')
+	{
+		return subBinaryPath;
+	}
 
-	try {
-		fs.renameSync(subBinaryPath, binaryPath);
-	} catch (error) {
+	// figure out where to put the binary
+	var binaryPath = path.resolve(__dirname, package.bin.elm);
+	var tmpPath = binaryPath + '.tmp';
+
+	// optimize by replacing the JS bin/elm with the native binary directly
+	try
+	{
+		// atomically replace the file with a hard link to the binary
+		fs.linkSync(subBinaryPath, tmpPath);
+		fs.renameSync(tmpPath, binaryPath);
+	}
+	catch (error)
+	{
 		exitFailure(version, 'I had some trouble writing file to disk. It is saying:\n\n' + error);
 	}
 
-	callback();
+	return binaryPath;
 }
 
 
