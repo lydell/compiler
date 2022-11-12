@@ -5,5 +5,5 @@
   "repository": "https://github.com/elm/compiler",
   "license": "BSD-3-Clause",
   "os": [ "darwin" ],
-  "cpu": [ "x64" ]
+  "cpu": [ "x64", "arm64" ]
 }
