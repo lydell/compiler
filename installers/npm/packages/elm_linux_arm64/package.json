@@ -1,8 +1,8 @@
 {
-  "name": "@evancz/elm_linux_arm64",
+  "name": "@lydell/elm_linux_arm64",
   "version": "0.19.1-2",
-  "description": "The Linux ARM 64-bit binary for Elm.",
-  "repository": "https://github.com/elm/compiler",
+  "description": "EXPERIMENTAL: The Linux ARM 64-bit binary for Elm.",
+  "repository": "https://github.com/lydell/compiler",
   "license": "BSD-3-Clause",
   "os": [ "linux" ],
   "cpu": [ "arm64" ]

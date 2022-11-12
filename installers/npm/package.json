@@ -1,14 +1,14 @@
 {
-  "name": "elm",
+  "name": "@lydell/elm",
   "version": "0.19.1-9",
-  "description": "Installer for Elm: just downloads the binary into node_modules",
+  "description": "EXPERIMENTAL Installer for Elm: just downloads the binary into node_modules",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "https://github.com/elm/compiler.git"
+    "url": "https://github.com/lydell/compiler.git"
   },
-  "homepage": "https://github.com/elm/compiler/tree/master/installers/npm",
-  "bugs": "https://github.com/elm/compiler/issues",
+  "homepage": "https://github.com/lydell/compiler/tree/master/installers/npm",
+  "bugs": "https://github.com/lydell/compiler/issues",
   "author": {
     "name": "Evan Czaplicki",
     "email": "evan@elm-lang.org",
@@ -36,10 +36,10 @@
   ],
   "bin": { "elm": "bin/elm" },
   "optionalDependencies": {
-    "@evancz/elm_darwin_arm64": "0.19.1-0",
-    "@evancz/elm_darwin_x64": "0.19.1-1",
-    "@evancz/elm_linux_arm64": "0.19.1-2",
-    "@evancz/elm_linux_x64": "0.19.1-0",
-    "@evancz/elm_win32_x64": "0.19.1-0"
+    "@lydell/elm_darwin_arm64": "0.19.1-0",
+    "@lydell/elm_darwin_x64": "0.19.1-1",
+    "@lydell/elm_linux_arm64": "0.19.1-2",
+    "@lydell/elm_linux_x64": "0.19.1-0",
+    "@lydell/elm_win32_x64": "0.19.1-0"
   }
 }
