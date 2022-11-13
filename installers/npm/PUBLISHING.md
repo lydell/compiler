@@ -8,8 +8,10 @@ Here's how to update the `npm` installer.
 Create a [GitHub Release](https://github.com/elm/compiler/releases) with the following files:
 
 1. `binary-for-mac-64-bit.gz`
-2. `binary-for-windows-64-bit.gz`
+2. `binary-for-mac-arm-64-bit.gz`
 3. `binary-for-linux-64-bit.gz`
+4. `binary-for-linux-arm-64-bit.gz`
+5. `binary-for-windows-64-bit.gz`
 
 Create each of these by running the `elm` executable for each platform through `gzip elm`.
 
@@ -17,9 +19,11 @@ Create each of these by running the `elm` executable for each platform through `
 
 Put the above files at:
 
-1. `packages/elm_darwin_x64/elm`
-2. `packages/elm_win32_x64/elm.exe` (Note the `.exe` file extension!)
+1. `packages/elm_darwin_arm64/elm`
+2. `packages/elm_darwin_x64/elm`
 3. `packages/elm_linux_x64/elm`
+4. `packages/elm_linux_arm64/elm`
+5. `packages/elm_win32_x64/elm.exe` (Note the `.exe` file extension!)
 
 (They are ignored by git.)
 
