@@ -1,7 +1,7 @@
 {
   "name": "@lydell/elm_linux_x64",
   "version": "0.19.1-0",
-  "description": "EXPERIMENTAL: The Linux 64-bit binary for Elm.",
+  "description": "The Linux 64-bit binary for Elm.",
   "repository": "https://github.com/lydell/compiler",
   "license": "BSD-3-Clause",
   "os": [ "linux" ],

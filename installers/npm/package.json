@@ -1,22 +1,12 @@
 {
   "name": "@lydell/elm",
   "version": "0.19.1-9",
-  "description": "EXPERIMENTAL Installer for Elm: just downloads the binary into node_modules",
+  "description": "Unofficial installer for Elm",
   "license": "BSD-3-Clause",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lydell/compiler.git"
-  },
-  "homepage": "https://github.com/lydell/compiler/tree/master/installers/npm",
-  "bugs": "https://github.com/lydell/compiler/issues",
-  "author": {
-    "name": "Evan Czaplicki",
-    "email": "evan@elm-lang.org",
-    "url": "https://github.com/evancz"
-  },
-  "engines": {
-    "node": ">=7.0.0"
-  },
+  "repository": "lydell/compiler",
+  "author": "Simon Lydell",
+  "type": "commonjs",
+  "exports": {},
   "scripts": {
     "install": "node install.js"
   },
