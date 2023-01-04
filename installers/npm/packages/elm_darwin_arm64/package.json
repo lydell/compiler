@@ -1,6 +1,6 @@
 {
   "name": "@lydell/elm_darwin_arm64",
-  "version": "0.19.1-0",
+  "version": "0.19.1-1",
   "description": "The macOS ARM 64-bit binary for Elm.",
   "repository": "https://github.com/lydell/compiler",
   "license": "BSD-3-Clause",
