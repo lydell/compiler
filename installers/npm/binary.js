@@ -36,8 +36,12 @@ module.exports = function()
 		}
 	}
 
+	// Yarn 2 and later ("Berry") always invokes `node` (regardless of configuration)
+	// so we cannot do any optimizations there
+	var isYarnBerry = /\byarn\/(?!1\.)/.test(process.env.npm_config_user_agent || "");
+
 	// as mentioned in bin/elm we cannot do any optimizations on Windows
-	if (process.platform === 'win32')
+	if (process.platform === 'win32' || isYarnBerry)
 	{
 		return subBinaryPath;
 	}
