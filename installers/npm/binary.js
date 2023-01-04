@@ -77,11 +77,9 @@ function verifyPlatform(version, subPackageName)
 	var situation = process.platform + '_' + process.arch;
 	console.error(
 		'-- ERROR -----------------------------------------------------------------------\n\n'
-		+ 'I am detecting that your computer (' + situation + ') may not be compatible with any\n'
-		+ 'of the official pre-built binaries.\n\n'
-		+ 'I recommend against using the npm installer for your situation. Check out the\n'
-		+ 'alternative installers at https://github.com/elm/compiler/releases/tag/' + version + '\n'
-		+ 'to see if there is something that will work better for you.\n\n'
+		+ 'The @lydell/elm npm package does not support your platform (' + situation + ').\n\n'
+		+ 'You can try to manually download an appropriate binary (if there is one) from:\n'
+		+ 'https://github.com/lydell/compiler/releases/tag/' + version + '\n\n'
 		+ 'From there I recommend asking for guidance on Slack or Discourse to find someone\n'
 		+ 'who can help with your specific situation.\n\n'
 		+ '--------------------------------------------------------------------------------\n'
@@ -100,7 +98,7 @@ function exitFailure(version, message)
 		'-- ERROR -----------------------------------------------------------------------\n\n'
 		+ message
 		+ '\n\nNOTE: You can avoid npm entirely by downloading directly from:\n'
-		+ 'https://github.com/elm/compiler/releases/tag/' + version + '\n'
+		+ 'https://github.com/lydell/compiler/releases/tag/' + version + '\n'
 		+ 'All this package does is distributing a file from there.\n\n'
 		+ '--------------------------------------------------------------------------------\n'
 	);
