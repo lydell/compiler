@@ -1,0 +1,9 @@
+{
+  "name": "@lydell/elm_linux_arm",
+  "version": "0.19.1-0",
+  "description": "The Linux ARM 32-bit binary for Elm.",
+  "repository": "https://github.com/lydell/compiler",
+  "license": "BSD-3-Clause",
+  "os": [ "linux" ],
+  "cpu": [ "arm" ]
+}
