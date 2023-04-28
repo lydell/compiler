@@ -99,7 +99,7 @@ function exitFailure(version, message)
 		+ message
 		+ '\n\nNOTE: You can avoid npm entirely by downloading directly from:\n'
 		+ 'https://github.com/lydell/compiler/releases/tag/' + version + '\n'
-		+ 'All this package does is distributing a file from there.\n\n'
+		+ 'All this package does is distribute a file from there.\n\n'
 		+ '--------------------------------------------------------------------------------\n'
 	);
 	process.exit(1);
