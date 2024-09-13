@@ -13,6 +13,6 @@ The npm package of this fork contains the _same binaries_ as the official packag
 npm install @lydell/elm
 ```
 
-> **History:** This package was originally used for testing a better way to package Elm, which was then merged into the official `elm` package and released as version 0.19.1-6.
+> **History:** This package was originally used for testing a better way to package Elm, which was then merged into the official `elm` package and released as version 0.19.1-6 – except the Linux ARM 64-bit and Raspberry PI binaries. The `@lydell/elm` package is still around in case you need those.
 
 👉 [Official elm repository](https://github.com/elm/compiler)
